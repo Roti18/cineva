@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cinova - Platform Streaming Film",
+  title: "Cinova - Platform Streaming Film (failed)",
   description:
     "Jelajahi ribuan film dari TMDB. Dark & Light mode untuk kenyamanan menonton.",
   generator: "v0.app",
