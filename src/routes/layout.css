@@ -7,7 +7,6 @@
 	--radius-xl: 1.5rem;
 	--transition-speed: 200ms;
 
-	/* Soft Dark Theme */
 	--color-bg: #0a0a0c;
 	--color-surface-0: #0f0f12;
 	--color-surface-1: #141417;
@@ -47,7 +46,6 @@
 	--font-sans: var(--font-sans);
 }
 
-/* Base resets and soft behavior */
 html {
 	font-family: var(--font-sans);
 	background-color: var(--color-bg);
@@ -63,7 +61,6 @@ body {
 	line-height: 1.5;
 }
 
-/* Custom Scrollbar - Ultra Minimal */
 ::-webkit-scrollbar {
 	width: 6px;
 }
@@ -82,7 +79,6 @@ body {
 	background: var(--color-text-muted);
 }
 
-/* Modern Animations */
 @keyframes skeleton-pulse {
 	0%, 100% { opacity: 0.4; }
 	50% { opacity: 0.2; }
@@ -102,7 +98,6 @@ body {
 	color: white;
 }
 
-/* Ghost & Subtle styles */
 button {
 	outline: none;
 }

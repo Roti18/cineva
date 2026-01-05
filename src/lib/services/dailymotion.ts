@@ -4,13 +4,11 @@ const API_BASE = 'https://api.dailymotion.com';
 const DEFAULT_FIELDS = 'id,title,description,thumbnail_480_url,duration,views_total,owner.screenname';
 const FETCH_TIMEOUT = 10000;
 
-// Safer way to handle timeout without needing AbortSignal.any if it's missing
 async function fetchWithTimeout(url: string, options: RequestInit = {}) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
 
     try {
-        // If a signal is provided, we listen to both
         if (options.signal) {
             if (options.signal.aborted) {
                 controller.abort();

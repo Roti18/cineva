@@ -16,7 +16,6 @@
 		isDark = savedTheme === 'dark';
 		document.documentElement.setAttribute('data-theme', savedTheme);
 
-		// Offline detection
 		isOffline = !navigator.onLine;
 		const handleOnline = () => (isOffline = false);
 		const handleOffline = () => (isOffline = true);
@@ -54,8 +53,6 @@
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </svelte:head>
 
-<!-- <PageLoader /> -->
-
 {#if isOffline}
 	<div
 		class="animate-in slide-in-from-top fixed top-0 left-0 z-[300] flex w-full items-center justify-center gap-2 bg-accent py-2 text-[11px] font-black tracking-widest text-white uppercase italic duration-500"
@@ -65,16 +62,16 @@
 	</div>
 {/if}
 
-<div
-	class="flex min-h-screen flex-col bg-bg text-text-primary selection:bg-accent/20 selection:text-accent"
->
-	{#if page.status < 400}
+{#if page.status >= 400}
+	{@render children()}
+{:else}
+	<div
+		class="flex min-h-screen flex-col bg-bg text-text-primary selection:bg-accent/20 selection:text-accent"
+	>
 		<Header />
-	{/if}
-	<main class="transition-theme flex-1">
-		{@render children()}
-	</main>
-	{#if page.status < 400}
+		<main class="transition-theme flex-1">
+			{@render children()}
+		</main>
 		<Footer />
-	{/if}
-</div>
+	</div>
+{/if}
