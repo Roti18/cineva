@@ -56,7 +56,13 @@
 			<VideoGrid {videos} />
 
 			<div class="mt-20 flex justify-center">
-				<Button variant="surface" size="lg" onclick={loadMore} disabled={loadingMore}>
+				<Button
+					variant="surface"
+					size="md"
+					class="md:px-8 md:py-3.5 md:text-base"
+					onclick={loadMore}
+					disabled={loadingMore}
+				>
 					{loadingMore ? 'Loading content...' : 'Show more videos'}
 				</Button>
 			</div>
