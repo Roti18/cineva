@@ -1,36 +1,44 @@
-# 🎬 Movie Streaming Platform (Project Attempt)
+# Cineva
 
-## ⚠️ Project Status: Discontinued
+Cineva is a video discovery application that integrates with the Dailymotion API to provide a seamless browsing and watching experience. Built using SvelteKit, the project focuses on efficient data fetching, robust error handling, and a clean server-side integration for sensitive operations.
 
-This project was **discontinued** because it failed to achieve its main objective: providing a **free movie streaming service**, due to the **absence of a suitable and legal public API**.
+## Key Functionalities
 
-### ❌ Reason for Failure
-After extensive research, the available APIs were found to provide only:
-- Movie metadata (title, genre, rating, synopsis)
-- Trailers or short video clips
-- Information about official streaming platforms
+### 1. Data Aggregation & API Integration
+- **Dailymotion API Service**: A centralized service (`src/lib/services/dailymotion.ts`) handles all communications with Dailymotion. It fetches trending videos, performs global searches, and retrieves specific video metadata (descriptions, view counts, and owner info).
+- **Custom Embed System**: Generates optimized embed URLs with specific parameters (autoplay off, mute off, no queue) to ensure a controlled playback environment.
 
-There is **no free and legal public API** that:
-- Provides **full-length movie streaming**
-- Allows unrestricted use for third-party applications
-- Complies with copyright and licensing regulations
+### 2. Advanced Search Logic
+- **Debounced Search**: The search bar implementation prevents API spam by using a 400ms debounce timer. Navigation to the search page only triggers after the user stops typing.
+- **Dynamic Routing**: Utilizes SvelteKit's reactive routing to update search results in real-time based on URL query parameters.
 
-### ⚖️ Legal Considerations
-Streaming full movies without proper authorization violates:
-- Copyright laws
-- Content licensing agreements
-- API terms of service
+### 3. Contact Form & Server Actions
+- **Backend Email Delivery**: Unlike traditional client-side mailto links, Cineva uses SvelteKit **Server Actions**. This allows the contact form to process data in the background using the **Resend API**.
+- **Security**: Sensitive API keys and contact details are kept strictly server-side through private environment variables.
+- **Validation**: Manual server-side and client-side validation ensures data integrity before submission.
 
-For these reasons, the project was **terminated** to avoid legal and ethical issues.
+### 4. Stability & Resilience
+- **Fetch Timeout Management**: All API requests are wrapped in a custom timeout handler (10 seconds) using `AbortController` to prevent hanging requests on poor connections.
+- **Real-time Offline Detection**: Monitoring `navigator.onLine` to display an instant connection status banner, ensuring the user is aware of their network state.
+- **Custom Error Boundary**: A root-level error handler (`+error.svelte`) provides specific feedback for 404s, 500s, and network timeout issues, bypassing the global layout for a focused recovery experience.
 
-### ✅ Key Takeaways
-Although the project could not be completed, it provided valuable learning outcomes:
-- Researching and evaluating public APIs
-- Understanding copyright and licensing constraints
-- Designing applications within legal boundaries
+## Technical Setup
 
-### 🔄 Future Alternatives
-This project may be reimagined as:
-- A **movie catalog** application (no streaming)
-- A **movie recommendation system** based on IMDb/TMDB ratings
-- A discovery platform that redirects users to **official streaming services**
+### Environment Variables
+Create a `.env` file in the root directory:
+```env
+PUBLIC_CONTACT_EMAIL="your-email@example.com"
+RESEND_API_KEY="re_your_api_key"
+```
+
+### Installation
+```bash
+npm install
+npm run dev
+```
+
+## Tech Stack
+- **Framework**: SvelteKit (Svelte 5)
+- **Email**: Resend API
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide Svelte
