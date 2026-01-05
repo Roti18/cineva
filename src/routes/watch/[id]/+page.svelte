@@ -5,6 +5,8 @@
 	import VideoPlayer from '$lib/components/sections/VideoPlayer.svelte';
 	import VideoGrid from '$lib/components/sections/VideoGrid.svelte';
 	import Skeleton from '$lib/components/ui/Skeleton.svelte';
+	import ErrorPage from '$lib/components/ui/ErrorPage.svelte';
+	import TimeoutError from '$lib/components/ui/TimeoutError.svelte';
 
 	interface VideoDetails {
 		id: string;
@@ -73,12 +75,11 @@
 				</div>
 			</div>
 		{:else if error}
-			<div class="flex flex-col items-center justify-center py-32 text-center text-text-secondary">
-				<p class="mb-4">{error}</p>
-				<a href="/" class="cursor-pointer font-bold text-accent transition-all hover:underline"
-					>← Return home</a
-				>
-			</div>
+			{#if error.includes('Timeout')}
+				<TimeoutError actionLabel="Try Deep Sync" />
+			{:else}
+				<ErrorPage status={500} title="Load Error" message={error} actionLabel="Try Deep Sync" />
+			{/if}
 		{:else if video}
 			<div class="mb-12">
 				<VideoPlayer videoId={video.id} title={video.title} />

@@ -19,4 +19,4 @@
 	<title>{status} | {message}</title>
 </svelte:head>
 
-<ErrorPage {status} {message} title={statusMessages[status]} />
+<ErrorPage {status} {message} title={statusMessages[status]} actionLabel="Back to Matrix" />

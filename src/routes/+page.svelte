@@ -4,6 +4,8 @@
 	import VideoGrid from '$lib/components/sections/VideoGrid.svelte';
 	import VideoSkeleton from '$lib/components/sections/VideoSkeleton.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import ErrorPage from '$lib/components/ui/ErrorPage.svelte';
+	import TimeoutError from '$lib/components/ui/TimeoutError.svelte';
 	import { onMount } from 'svelte';
 
 	let videos = $state<VideoCardData[]>([]);
@@ -44,10 +46,11 @@
 		{#if loading}
 			<VideoSkeleton count={15} />
 		{:else if error}
-			<div class="flex flex-col items-center justify-center py-32 text-center">
-				<p class="mb-6 text-text-secondary">{error}</p>
-				<Button variant="outline" onclick={() => location.reload()}>Try Again</Button>
-			</div>
+			{#if error.includes('Timeout')}
+				<TimeoutError actionLabel="Reboot Feed" />
+			{:else}
+				<ErrorPage status={500} title="Load Error" message={error} actionLabel="Reboot Feed" />
+			{/if}
 		{:else if videos.length === 0}
 			<div class="flex items-center justify-center py-32 text-center text-text-muted">
 				<p>No content available at the moment.</p>

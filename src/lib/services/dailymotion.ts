@@ -27,7 +27,7 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}) {
         clearTimeout(timeoutId);
         if (error.name === 'AbortError') {
             if (controller.signal.aborted) {
-                throw new Error('TIMEOUT: Koneksi internet bermasalah, Bang.');
+                throw new Error('408: Request Timeout');
             }
         }
         throw error;
@@ -99,5 +99,5 @@ export async function getVideoById(id: string): Promise<DailymotionVideo | null>
 }
 
 export function getEmbedUrl(videoId: string): string {
-    return `https://www.dailymotion.com/embed/video/${videoId}?autoplay=0&mute=0&quality=auto&queue-enable=0&queue-autoplay-next=0&ui-start-screen-info=1`;
+    return `https://www.dailymotion.com/embed/video/${videoId}?autoplay=0&ui-logo=0&ui-start-screen-info=0&fullscreen-enable=1`;
 }

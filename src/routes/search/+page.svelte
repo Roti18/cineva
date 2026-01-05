@@ -5,6 +5,8 @@
 	import VideoGrid from '$lib/components/sections/VideoGrid.svelte';
 	import VideoSkeleton from '$lib/components/sections/VideoSkeleton.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import ErrorPage from '$lib/components/ui/ErrorPage.svelte';
+	import TimeoutError from '$lib/components/ui/TimeoutError.svelte';
 
 	let videos = $state<VideoCardData[]>([]);
 	let loading = $state(false);
@@ -78,10 +80,11 @@
 			{#if loading}
 				<VideoSkeleton count={10} />
 			{:else if error}
-				<div class="flex flex-col items-center justify-center py-32 text-center">
-					<p class="mb-6 text-text-secondary">{error}</p>
-					<Button variant="outline" onclick={() => location.reload()}>Try Again</Button>
-				</div>
+				{#if error.includes('Timeout')}
+					<TimeoutError actionLabel="Retry Hunt" />
+				{:else}
+					<ErrorPage status={500} title="Search Breach" message={error} actionLabel="Retry Hunt" />
+				{/if}
 			{:else if videos.length === 0}
 				<div class="flex flex-col items-center justify-center py-32 text-center text-text-muted">
 					<p class="text-lg">We couldn't find anything matching your search.</p>
