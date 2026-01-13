@@ -56,7 +56,7 @@ export async function searchVideos(
         limit: limit.toString(),
         page: page.toString(),
         fields: DEFAULT_FIELDS,
-        sort: 'visited',
+        sort: 'relevance',
         family_filter: 'true'
     });
 
